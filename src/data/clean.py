@@ -73,6 +73,21 @@ def clean_current_ssn():
 
     return merged
 
+def clean_current_fixtures():
+    """
+    This is a function that takes in the raw csv for the current seasons fixtures and returns the cleaned version that has the season added and the event feature renamed to GW
+    
+    returns: pd.DataFrame
+    """
+
+    fixtures = pd.read_csv(RAW_DIR / "2026-27" / "fixtures.csv")
+
+    fixtures.rename(columns={"event": "GW"})
+    fixtures["season"] = "2026-27"
+
+    return fixtures
+
+
 def main():
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True) # creating a new processed directory if it does not already exist
 
@@ -93,7 +108,12 @@ def main():
     current_season_data = clean_current_ssn() # Create a dataframe with the clean merged data
     out_path_current_season_data = PROCESSED_DIR / f"2026-27_gw.csv" # The path where the current season data is sent
     current_season_data.to_csv(out_path_current_season_data, index=False) # Send the current season df to the path given as a csv
-    print(f"Saved {out_path_current_season_data} ({len(current_season_data)} rows)") 
+    print(f"Saved {out_path_current_season_data} ({len(current_season_data)} rows)")
+
+    current_fixture_data = clean_current_ssn() # Create a dataframe with the clean merged data
+    out_path_current_fixture_data = PROCESSED_DIR / f"2026-27_fixtures.csv" # The path where the current season data is sent
+    current_fixture_data.to_csv(out_path_current_fixture_data, index=False) # Send the current season df to the path given as a csv
+    print(f"Saved {out_path_current_fixture_data} ({len(current_fixture_data)} rows)")  
 
 
 if __name__ == "__main__":
