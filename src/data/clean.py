@@ -10,6 +10,7 @@ def clean_merged_gw(season: str) -> pd.DataFrame:
 
     if "position" in df.columns:
         df = df[df["position"] != "MNG"] # Drop all rows where position is MNG
+        df = df[df["position"] != "AM"] # Drop all rows where position is AM
 
     df = df.drop(columns=[c for c in df.columns if c.startswith("mng_")]) # List comprehension that drops all columns that start with "mng_"
 
