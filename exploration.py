@@ -49,3 +49,9 @@ elif a == 8: # Shows the average points per position with a bar chart.
 
     df[df["minutes"]>0].groupby("position")["total_points"].mean().plot(kind="bar")
     plt.show()
+
+elif a == 9:
+    df2 = pd.read_csv("data/raw/2026-27/history.csv")
+    df3 = pd.read_csv("data/raw/2025-26/merged_gw.csv")
+    df2.info()
+    df3.info()
